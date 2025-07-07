@@ -6,6 +6,7 @@ ffi.cdef[[
     int test_controller();
     int test_hook();
     int run_qt_creator();
+    int inject_hook_into_qtcreator();
 ]]
 
 local controller_dll
@@ -57,6 +58,10 @@ function M.setup(opts)
     vim.api.nvim_create_user_command('MedusaRun', function()
         M.run()
     end, {})
+    
+    vim.api.nvim_create_user_command('MedusaInjectHook', function()
+        M.inject_hook()
+    end, {})
 end
 
 function M.run()
@@ -70,6 +75,22 @@ function M.run()
         print("Medusa: Successfully triggered QT Creator build")
     else
         print("Medusa: Failed to find QT Creator window")
+    end
+end
+
+function M.inject_hook()
+    if not controller_dll then
+        print("Medusa: Controller DLL not loaded")
+        return
+    end
+    
+    local result = controller_dll.inject_hook_into_qtcreator()
+    if result == 1 then
+        print("Medusa: Successfully injected hook into QT Creator")
+    elseif result == 0 then
+        print("Medusa: QT Creator process not found")
+    else
+        print("Medusa: Failed to inject hook (error code: " .. result .. ")")
     end
 end
 
