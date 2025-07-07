@@ -1,1 +1,32 @@
 misc
+
+# Build directories
+build/
+bin/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+*.cmake
+
+# Visual Studio / Windows
+*.pdb
+*.obj
+*.exe
+*.dll
+*.lib
+*.exp
+*.ilk
+*.manifest
+*.suo
+*.user
+*.sdf
+*.opensdf
+*.sln
+*.vcxproj*
+
+# Temporary files
+*.tmp
+*.temp
+*~
